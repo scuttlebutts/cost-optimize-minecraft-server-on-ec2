@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define your FTB server root directory
-SERVER_DIR="/opt/ftb/server"
+SERVER_DIR="/home/ubuntu/server"
 
 cd "$SERVER_DIR" || exit 1
 rm -f mc-stop.sh mc-start.sh monitor
