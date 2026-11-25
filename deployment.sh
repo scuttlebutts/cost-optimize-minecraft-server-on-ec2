@@ -52,7 +52,7 @@ chmod +x monitor
 cat << 'EOF' > mc-start.sh
 #!/bin/bash
 RAM=$(aws ssm get-parameter --name "/mc/ram" --query "Parameter.Value" --output text)
-DEFAULT_RAM="14336"
+DEFAULT_RAM="14336M"
 
 echo "starting FTB server!"
 if [ $? -eq 0 ] && [[ "$RAM" =~ ^[0-9]+$ ]] && [ "$RAM" -gt 0 ]; then
