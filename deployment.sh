@@ -33,7 +33,7 @@ while true; do
             if [ "$elapsed" -ge "$SHUTDOWNTIMER" ]; then
                 echo "timer has reached time, begin shutdown logic"
                 sudo ./mc-stop.sh
-                sleep 30 # Increased to 30s to give modded worlds extra time to save chunks
+                sleep 120 # Increased to 120s to give modded worlds extra time to save chunks
                 echo "stop ec2 instance"
                 sudo shutdown -h now
                 break
@@ -52,7 +52,7 @@ chmod +x monitor
 cat << 'EOF' > mc-start.sh
 #!/bin/bash
 RAM=$(aws ssm get-parameter --name "/mc/ram" --query "Parameter.Value" --output text)
-DEFAULT_RAM="8192M"
+DEFAULT_RAM="14336"
 
 echo "starting FTB server!"
 if [ $? -eq 0 ] && [[ "$RAM" =~ ^[0-9]+$ ]] && [ "$RAM" -gt 0 ]; then
@@ -67,7 +67,7 @@ echo "-Xmx${ram_size}" > user_jvm_args.txt
 echo "-Xms${ram_size}" >> user_jvm_args.txt
 
 # Execute FTB's built-in start script (change to ./run.sh if your pack uses run.sh)
-exec ./start.sh
+exec ./run.sh
 EOF
 chmod +x mc-start.sh
 
